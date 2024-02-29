@@ -82,37 +82,33 @@ class HomePage extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(8),
                         color: const Color(0xFFf2f2f2),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          left: 12,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Request",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Request ${index + 1}",
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  data.lat.toString(),
-                                ),
-                                Text(
-                                  data.lon.toString(),
-                                ),
-                                Text(
-                                  data.speed.toString(),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                data.lat.toString(),
+                              ),
+                              Text(
+                                data.lon.toString(),
+                              ),
+                              Text(
+                                data.speed.toString(),
+                              )
+                            ],
+                          )
+                        ],
                       ),
                     ),
                   );

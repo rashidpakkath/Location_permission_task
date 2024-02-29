@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_task/controller/provider.dart';
 import 'package:flutter_task/main.dart';
@@ -60,13 +61,24 @@ List<ButtonModel> buttonList = [
   ButtonModel(
     buttonName: 'Request Notification Permission',
     buttonColor: const Color(0xFFf2c94c),
-    onTap: (ref) {},
+    onTap: (ref) {
+      print("Hellow");
+      AwesomeNotifications().requestPermissionToSendNotifications();
+    },
   ),
   ButtonModel(
     buttonName: 'Start Location Update',
     buttonColor: const Color(0xFF27ae60),
     onTap: (ref) {
       ref.read(homeProvider.notifier).startLocationPolling();
+      AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: 10,
+          channelKey: 'location-update',
+          actionType: ActionType.Default,
+          title: 'Location update started',
+        ),
+      );
     },
   ),
   ButtonModel(
@@ -74,6 +86,14 @@ List<ButtonModel> buttonList = [
     buttonColor: const Color(0xFFeb5757),
     onTap: (ref) {
       ref.read(homeProvider.notifier).stopLocationPolling();
+      AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: 11,
+          channelKey: 'location-update',
+          actionType: ActionType.Default,
+          title: 'Location update stoped',
+        ),
+      );
     },
   ),
 ];

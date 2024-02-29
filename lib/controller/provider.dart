@@ -28,7 +28,7 @@ class Home extends _$Home {
       return;
     }
 
-    final timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
+    final timer = Timer.periodic(const Duration(seconds: 30), (timer) async {
       final newLocation = await _getCurrentLocation();
       state = state.copyWith(
         locations: [
