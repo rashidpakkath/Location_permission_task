@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter_task/model/freezed_model.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'provider.g.dart';
 
@@ -30,6 +31,9 @@ class Home extends _$Home {
 
     final timer = Timer.periodic(const Duration(seconds: 30), (timer) async {
       final newLocation = await _getCurrentLocation();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setDouble('latitude', newLocation.latitude);
+      prefs.setDouble('longitude', newLocation.longitude);
       state = state.copyWith(
         locations: [
           ...state.locations,

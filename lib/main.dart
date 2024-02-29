@@ -2,6 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_task/view/home_page.dart';
+import 'package:flutter_task/view/responsive_page.dart';
 
 void main() {
   AwesomeNotifications().initialize(
@@ -27,7 +28,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       scaffoldMessengerKey: scaffoldMessangerKey,
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: LayoutBuilder(
+        builder: (context, constraints) {
+          return constraints.maxWidth > 600 ? ResponsivePage() : HomePage();
+        },
+      ),
     );
   }
 }
