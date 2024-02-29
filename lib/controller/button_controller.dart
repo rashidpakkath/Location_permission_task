@@ -44,7 +44,7 @@ List<ButtonModel> buttonList = [
   ButtonModel(
     buttonName: 'Request Location Permission',
     buttonColor: const Color(0xFF2f80ed),
-    onTap: (ref) async {
+    onTap: (ref, context) async {
       /// Check if location service is enabled
       if (await isLocationEnabled()) {
         /// Check if the app has permission
@@ -61,7 +61,7 @@ List<ButtonModel> buttonList = [
   ButtonModel(
     buttonName: 'Request Notification Permission',
     buttonColor: const Color(0xFFf2c94c),
-    onTap: (ref) {
+    onTap: (ref, context) {
       print("Hellow");
       AwesomeNotifications().requestPermissionToSendNotifications();
     },
@@ -69,22 +69,43 @@ List<ButtonModel> buttonList = [
   ButtonModel(
     buttonName: 'Start Location Update',
     buttonColor: const Color(0xFF27ae60),
-    onTap: (ref) {
-      ref.read(homeProvider.notifier).startLocationPolling();
-      AwesomeNotifications().createNotification(
-        content: NotificationContent(
-          id: 10,
-          channelKey: 'location-update',
-          actionType: ActionType.Default,
-          title: 'Location update started',
-        ),
-      );
+    onTap: (ref, context) {
+      showDialog(
+          context: context,
+          builder: ((context) {
+            return AlertDialog(
+              title: Text('Alert'),
+              content: Text('Are you sure'),
+              actions: [
+                TextButton(
+                    onPressed: (() {
+                      Navigator.pop(context);
+                    }),
+                    child: Text('No')),
+                TextButton(
+                  onPressed: () {
+                    ref.read(homeProvider.notifier).startLocationPolling();
+                    AwesomeNotifications().createNotification(
+                      content: NotificationContent(
+                        id: 10,
+                        channelKey: 'location-update',
+                        actionType: ActionType.Default,
+                        title: 'Location update started',
+                      ),
+                    );
+                    Navigator.pop(context);
+                  },
+                  child: Text('Yes'),
+                )
+              ],
+            );
+          }));
     },
   ),
   ButtonModel(
     buttonName: 'Stop Location Update',
     buttonColor: const Color(0xFFeb5757),
-    onTap: (ref) {
+    onTap: (ref, context) {
       ref.read(homeProvider.notifier).stopLocationPolling();
       AwesomeNotifications().createNotification(
         content: NotificationContent(

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ButtonModel {
   final String buttonName;
   final Color buttonColor;
-  void Function(WidgetRef ref) onTap;
+  void Function(WidgetRef ref, BuildContext context) onTap;
 
   ButtonModel({
     required this.buttonName,

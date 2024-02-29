@@ -38,7 +38,7 @@ class HomePage extends ConsumerWidget {
                       vertical: 12,
                     ),
                     child: InkWell(
-                      onTap: () => buttonList[index].onTap(ref),
+                      onTap: () => buttonList[index].onTap(ref, context),
                       child: Container(
                         height: 50,
                         width: double.infinity,
@@ -98,13 +98,13 @@ class HomePage extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                data.lat.toString(),
+                                "Lat :${data.lat.toString()}",
                               ),
                               Text(
-                                data.lon.toString(),
+                                "Lng :${data.lon.toString()}",
                               ),
                               Text(
-                                data.speed.toString(),
+                                "Speed : ${data.speed.toString()}",
                               )
                             ],
                           )
