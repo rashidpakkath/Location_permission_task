@@ -69,19 +69,21 @@ List<ButtonModel> buttonList = [
   ButtonModel(
     buttonName: 'Start Location Update',
     buttonColor: const Color(0xFF27ae60),
-    onTap: (ref, context) {
-      showDialog(
+    onTap: (ref, context) async {
+      if (await requestLocationPermission()) {
+        /// Check if the app has permission
+        showDialog(
           context: context,
           builder: ((context) {
             return AlertDialog(
-              title: Text('Alert'),
-              content: Text('Are you sure'),
+              title: const Text('Alert'),
+              content: const Text('Are you sure'),
               actions: [
                 TextButton(
                     onPressed: (() {
                       Navigator.pop(context);
                     }),
-                    child: Text('No')),
+                    child: const Text('No')),
                 TextButton(
                   onPressed: () {
                     ref.read(homeProvider.notifier).startLocationPolling();
@@ -95,11 +97,23 @@ List<ButtonModel> buttonList = [
                     );
                     Navigator.pop(context);
                   },
-                  child: Text('Yes'),
+                  child: const Text('Yes'),
                 )
               ],
             );
-          }));
+          }),
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: ((context) {
+            return const AlertDialog(
+              title: Text('Alert'),
+              content: Text('Place Enable Location permission'),
+            );
+          }),
+        );
+      }
     },
   ),
   ButtonModel(
