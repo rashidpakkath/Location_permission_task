@@ -25,14 +25,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double phoneMaxWidth = 600;
+
     return MaterialApp(
       scaffoldMessengerKey: scaffoldMessangerKey,
       debugShowCheckedModeBanner: false,
-      home: LayoutBuilder(
-        builder: (context, constraints) {
-          return constraints.maxWidth > 600 ? ResponsivePage() : HomePage();
-        },
-      ),
+      home: MediaQuery.of(context).size.width <= phoneMaxWidth
+          ? HomePage()
+          : ResponsivePage(),
+      // LayoutBuilder(
+      //   builder: (context, constraints) {
+      //     return constraints.maxWidth > 600 ? ResponsivePage() : HomePage();
+      //   },
+      // ),
     );
   }
 }
